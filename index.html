@@ -15,6 +15,7 @@
       justify-content: center;
       align-items: center;
       overflow-x: hidden;
+      overflow-y: hidden; /* 防止纵向滚动条 */
       color: #fff;
     }
 
@@ -173,6 +174,10 @@
 
     .highlight h3 { font-size: 1.2rem; color: #00eaff; margin-bottom: 0.5rem; }
     .highlight p { font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+
+    @media (max-width: 767px) {
+      .highlights { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -197,7 +202,6 @@
     </div>
 
     <div class="highlights">
-      <!-- English Highlights on top -->
       <div class="highlight">
         <h3>Global Users</h3>
         <p>Connect with traders and prediction enthusiasts worldwide for real-time discussions.</p>
@@ -210,7 +214,6 @@
         <h3>Events & Challenges</h3>
         <p>Participate in prediction challenges and community events to gain experience and rewards.</p>
       </div>
-      <!-- Chinese Highlights below -->
       <div class="highlight">
         <h3>全球用户</h3>
         <p>连接来自世界各地的交易者和预测爱好者，实时交流。</p>
@@ -236,7 +239,7 @@
       const p = document.createElement('div');
       p.className = 'particle';
       p.style.left = Math.random()*100+'vw';
-      p.style.top = 120 + Math.random()*50+'vh';
+      p.style.top = 100 + Math.random()*20 + 'vh'; // 调整初始位置，避免纵向滚动条
       p.style.animationDuration = 6 + Math.random()*8 + 's';
       document.body.appendChild(p);
     }
