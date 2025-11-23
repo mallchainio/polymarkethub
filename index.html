@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PolyMarketHub Community Portal , PolyMarketHub 社群門戶</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #01020a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Nebula Background */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at 25% 20%, rgba(0,200,255,0.35), transparent 60%),
+                  radial-gradient(circle at 80% 75%, rgba(255,0,200,0.3), transparent 60%),
+                  linear-gradient(135deg, #000010, #050520);
+      animation: nebula 15s infinite alternate ease-in-out;
+      filter: blur(45px);
+    }
+
+    @keyframes nebula {
+      0% { transform: scale(1); opacity: 0.9; }
+      100% { transform: scale(1.25); opacity: 1; }
+    }
+
+    header { text-align: center; margin-bottom: 3rem; }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, rgba(0,234,255,0.4) 0%, #7b5bff 20%, #00ffcc 40%, rgba(255,255,255,1) 50%, #00ffcc 60%, #7b5bff 80%, rgba(0,234,255,0.4) 100%);
+      background-size: 300%;
+      animation: textShine 6s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    @keyframes textShine {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    /* Glassy light sweep (shimmer) */
+    /* shimmer removed */
+
+    /* shimmer removed */
+      10% { opacity: 0.9; }
+      50% { left: 120%; opacity: 0.6; }
+      100% { left: 120%; opacity: 0; }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 25px rgba(0,200,255,0.3); }
+      to { text-shadow: 0 0 50px rgba(0,200,255,0.7), 0 0 60px rgba(123,91,255,0.5); }
+    }
+
+    p.subtitle {
+      opacity: 0.8;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      white-space: normal;
+      text-align: center;
+    }
+
+    main {
+      display: flex;
+      width: 90%;
+      max-width: 900px;
+      gap: 2rem;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .community-cards {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .community-cards { flex-direction: row; }
+    }
+
+    .card {
+      flex: 1;
+      position: relative;
+      padding: 2.5rem;
+      border-radius: 18px;
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(0,200,255,0.25);
+      cursor: pointer;
+      transition: 0.35s ease;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: cardFadeUp 0.9s ease forwards;
+    }
+
+    @keyframes cardFadeUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.05);
+      border-color: #00eaff;
+      box-shadow: 0 0 50px rgba(0,200,255,0.45);
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(0,200,255,0.25), transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+
+    .card:hover::after { transform: translateX(100%); }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #00eaff;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .card p {
+      opacity: 0.8;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Particles */
+    .particle {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: #00eaff;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: floatParticles linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes floatParticles {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to { transform: translateY(-220vh) scale(0.3); opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <header>
+    <h1>PolyMarketHub</h1>
+    <p class="subtitle">选择你的未来 —— 进入全球最前沿的预测市场生态</p>
+<p class="subtitle">Choose your future — Explore the cutting-edge prediction market ecosystem globally</p>
+  </header>
+
+  <main>
+    <div class="community-cards">
+      <div class="card" onclick="enter('en')">
+        <h2>English Community</h2>
+        <p>Join traders, researchers, and builders from all over the world.</p>
+      </div>
+      <div class="card" onclick="enter('zh')">
+        <h2>中文社区</h2>
+        <p>加入华语圈最活跃的 Polymarket 讨论空间。</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Load particles first
+    (function initParticles() {
+      for (let i = 0; i < 80; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random()*100+'vw';
+        p.style.top = 120 + Math.random()*100+'vh';
+        p.style.animationDuration = 6 + Math.random()*8 + 's';
+        document.body.appendChild(p);
+      }
+    })();
+
+    function enter(lang) {
+      if (lang === 'en') window.open('https://en.polymarkethub.com');
+      else window.open('https://zh.polymarkethub.com');
+    }
+  </script>
+</body>
+</html>
